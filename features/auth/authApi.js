@@ -36,9 +36,23 @@ const authApi = apiSlice.injectEndpoints({
       }),
     }),
     updateProfileImage: builder.mutation({
-      query: ({ id, data }) => ({
+      query: ({ id, token, data }) => ({
         url: `/user/profile/image/${id}`,
         method: "PATCH",
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+        body: data,
+      }),
+      invalidatesTags: ["User"],
+    }),
+    updateProfile: builder.mutation({
+      query: ({ token, data, id }) => ({
+        url: `/user/profile/${id}`,
+        method: "PATCH",
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
         body: data,
       }),
       invalidatesTags: ["User"],
@@ -51,5 +65,6 @@ export const {
   useSignupMutation,
   useSocialLoginMutation,
   useUpdateProfileImageMutation,
+  useUpdateProfileMutation,
   useGetMeQuery,
 } = authApi;

@@ -39,15 +39,17 @@ export default function ProfileSideNav() {
     inputFile.current.click();
   };
   const handleFileChange = (event) => {
+    const id = user?._id;
+
     const fileObj = event.target.files && event.target.files[0];
     if (!fileObj) {
       return;
     }
-    const formData = new FormData();
-    formData.append("image", fileObj);
-    updateProfile({ id: user?._id, data: formData });
+    const data = new FormData();
+    data.append("image", fileObj);
+    updateProfile({ id, token, data });
   };
-// 
+  //
   return (
     <div className="profile-sidebar">
       <div

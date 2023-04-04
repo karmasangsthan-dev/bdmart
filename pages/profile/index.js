@@ -1,22 +1,19 @@
 import { useRouter } from "next/router";
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { AiFillCamera } from "react-icons/ai";
-import { useDispatch, useSelector } from "react-redux";
-import Header from "../../components/Shared/Header/Header";
+
 import auth from "../../firebase.init";
 import Loading from "../../components/Shared/Loading/Loading";
-import { toast } from "react-hot-toast";
+
 import RequreAuth from "../../components/Shared/RequireAuth/RequireAuth";
 import Layout from "../../components/LayOut";
-import {
-  useGetMeQuery,
-  useUpdateProfileImageMutation,
-} from "../../features/auth/authApi";
-import { fetchUser, setUser } from "../../features/auth/authSlice";
+
 import ProfileSideNav from "../../components/Profile/ProfileSideNav";
+import { useSelector } from "react-redux";
+import { BsPencil } from "react-icons/bs";
 
 const profile = () => {
+  const router = useRouter();
   const [userSocial, loading2, error2] = useAuthState(auth);
   const user = useSelector((state) => state.auth.user);
   if (loading2) {
@@ -33,16 +30,17 @@ const profile = () => {
           <div className="col-md-9">
             <div className="profile-content">
               <div className="tab-pane fade show active" id="account-info">
-                <div className="d-flex justify-content-between">
+                <div className="d-flex justify-content-between align-items-center">
                   <h2>Account Information</h2>
-                  <h4
+                  <p
                     onClick={() => {
                       router.push("/profile/account-info/edit");
                     }}
-                    className="btn px-2 bg-dark text-white"
+                    className=" text-xl bg-warning bg-opacity-75  text-white  px-3 rounded py-2"
                   >
-                    Edit
-                  </h4>
+                    <BsPencil className="" />{" "}
+                    <span className="ms-1">Edit Profile</span>
+                  </p>
                 </div>
                 <hr />
                 <div className="row">
