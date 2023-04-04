@@ -47,7 +47,7 @@ export default function ProfileSideNav() {
     formData.append("image", fileObj);
     updateProfile({ id: user?._id, data: formData });
   };
-
+// 
   return (
     <div className="profile-sidebar">
       <div
