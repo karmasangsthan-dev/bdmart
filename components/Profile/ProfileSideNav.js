@@ -4,7 +4,8 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { useUpdateProfileImageMutation } from "../../features/auth/authApi";
 import { AiFillCamera } from "react-icons/ai";
-
+import { fetchUser } from "../../features/auth/authSlice";
+import { toast } from "react-hot-toast";
 export default function ProfileSideNav() {
   const [token, setToken] = useState();
   const inputFile = useRef(null);
