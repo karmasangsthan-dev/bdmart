@@ -18,7 +18,7 @@ const authApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      // invalidatesTags: ["User"],
+      invalidatesTags: ["User"],
     }),
     login: builder.mutation({
       query: (data) => ({
@@ -26,7 +26,7 @@ const authApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      // invalidatesTags: ["User"],
+      invalidatesTags: ["User"],
     }),
     socialLogin: builder.mutation({
       query: (data) => ({
@@ -34,6 +34,7 @@ const authApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["User"],
     }),
     updateProfileImage: builder.mutation({
       query: ({ id, token, data }) => ({

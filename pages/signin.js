@@ -16,30 +16,23 @@ import { setUser } from "../features/auth/authSlice";
 import auth from "../firebase.init";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import Layout from "../components/LayOut";
+import GoogleLogin from "../components/Shared/SocialLogin/GoogleLogin";
 
 const signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPass, setShowPass] = useState(false);
 
-  const [signInWithGoogle, user, loading, errorGoogle] =
-    useSignInWithGoogle(auth);
   const router = useRouter();
   const dispatch = useDispatch();
   const [login, { data, isSuccess, isError, error }] = useLoginMutation();
-  const [
-    socialLogin,
-    { data: socialUser, isSuccess: success, isError: isErr, error: err },
-  ] = useSocialLoginMutation();
 
   const handleSignIn = (event) => {
     event.preventDefault();
 
     login({ email, password });
   };
-  const handleGoogleSignIn = () => {
-    signInWithGoogle();
-  };
+
   useEffect(() => {
     if (isSuccess) {
       localStorage.setItem("accessToken", data.token);
@@ -51,22 +44,8 @@ const signin = () => {
     if (isError) {
       toast.error(error?.data?.error, { id: "login" });
     }
+  }, [isSuccess, data, dispatch, isError, error]);
 
-    if (user?.user) {
-      const email = user?.user?.email;
-
-      const fullName = user?.user?.displayName;
-      const providerId = "firebase";
-      socialLogin({ email, fullName, providerId });
-      router.push("/");
-    }
-  }, [isSuccess, data, dispatch, isError, error, user]);
-  console.log({
-    data: socialUser,
-    isSuccess: success,
-    isError: isErr,
-    error: err,
-  });
   return (
     <Layout title="Sign in - Bangladesh Mart">
       <div style={{ backgroundColor: "#fff !important", minHeight: "100vh" }}>
@@ -134,13 +113,14 @@ const signin = () => {
                   Sign In
                 </button>
                 <p>or sign in with</p>
-                <button
+                {/* <button
                   onClick={handleGoogleSignIn}
                   style={{ backgroundColor: "#d34836" }}
                   className="btn w-100 px-2 py-2 mt-3 text-white"
                 >
                   <FaGooglePlusG className="h4 mb-0" /> Google
-                </button>
+                </button> */}
+                <GoogleLogin />
                 <button
                   style={{ backgroundColor: "#3b5998" }}
                   className="btn w-100 px-2 py-2 mt-3 text-white"

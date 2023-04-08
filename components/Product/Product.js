@@ -2,12 +2,11 @@ import React, { useState } from "react";
 
 export default function Product({ item }) {
   const [selectedProduct, setSelectedProduct] = useState(null);
-const [cartQuantity, setCartQuantity]  = useState()
+  const [cartQuantity, setCartQuantity] = useState();
   const handleAddToCart = (event, productId) => {
     setSelectedProduct(productId);
   };
-    const handleQunatityIncrement = (id) => {
-      
+  const handleQunatityIncrement = (id) => {
     toast(id);
   };
   const handleQunatityDecrement = (id) => {
