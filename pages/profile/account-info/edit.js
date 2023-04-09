@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
-import React from "react";
-import { AiFillCamera } from "react-icons/ai";
+import React, { useEffect, useState } from "react";
+
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -8,25 +8,47 @@ import auth from "../../../firebase.init";
 
 import { toast } from "react-hot-toast";
 import Loading from "../../../components/Shared/Loading/Loading";
-import Link from "next/link";
+
 import Layout from "../../../components/LayOut";
 import ProfileSideNav from "../../../components/Profile/ProfileSideNav";
+import { useUpdateProfileMutation } from "../../../features/auth/authApi";
+import { fetchUser } from "../../../features/auth/authSlice";
 
 const profile = () => {
   const router = useRouter();
+  const [token, setToken] = useState();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    setToken(token);
+  }, []);
   const user = useSelector((state) => state.auth.user);
-  const [userSocial, loading2, error2] = useAuthState(auth);
-  const updateProfilePhoto = () => {
-    toast.error(
-      "This feature is right now under development. Please try later !!",
-      { id: "profileEdit" }
-    );
+  const [updateProfile, { isSuccess, isError, error }] =
+    useUpdateProfileMutation();
+
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    const id = user?._id;
+    const fullName = e.target.fullName.value;
+    const email = user?.email;
+    const contactNumber = e.target.contactNumber.value;
+    const gender = e.target.gender.value;
+    const address = e.target.address.value;
+    const data = { fullName, email, contactNumber, gender, address };
+
+    updateProfile({ id, token, data });
   };
 
-  if (loading2) {
-    return <Loading></Loading>;
-  }
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Updated successful", { id: "updateProfile" });
+      dispatch(fetchUser(token));
+    }
+  }, [isSuccess]);
+  // if (loading2) {
+  //   return <Loading></Loading>;
+  // }
 
   return (
     <Layout title="Edit Profile - Bangladesh Mart">
@@ -37,81 +59,117 @@ const profile = () => {
           </div>
           <div className="col-md-9">
             <div className="profile-content">
-              <div className="tab-pane fade show active" id="account-info">
+              <form
+                onSubmit={handleUpdate}
+                className="tab-pane fade show active"
+                id="account-info"
+              >
                 <div className="d-flex justify-content-between">
                   <h2>Account Information</h2>
-                  <h4
-                    onClick={() => {
-                      router.push("/profile");
-                    }}
-                    className="btn px-2 bg-dark text-white"
-                  >
-                    Save
-                  </h4>
+                  <input
+                    type="submit"
+                    value="Save"
+                    className="bg-warning bg-opacity-75 text-xl text-white px-3 rounded py-2"
+                  />
                 </div>
                 <hr />
                 <div className="row">
                   <div className="col-md-6">
-                    <label htmlFor="name">Name:</label>
+                    <label htmlFor="name">Full Name:</label>
                     <input
-                      className="w-100 px-2 py-1 mb-3"
+                      className="w-100 px-3 py-2 mb-3 border-0 text-capitalize"
                       style={{
                         backgroundColor: "#eff0f5",
                         borderRadius: "5px",
                       }}
+                      name="fullName"
                       type="text"
-                      placeholder="Enter Your Name"
+                      defaultValue={user?.fullName}
+                      placeholder="Enter Your Full Name"
                     />
 
                     <label htmlFor="name">Email:</label>
                     <input
-                      className="w-100 px-2 py-1 mb-3 "
+                      className="w-100 px-3 py-2 mb-3 border-0 "
+                      name="email"
                       style={{
                         backgroundColor: "#eff0f5",
                         borderRadius: "5px",
                       }}
                       type="text"
-                      defaultValue={user?.email || userSocial?.email}
+                      value={user?.email}
                       contentEditable="false"
                       readOnly
-                      disabled
                     />
 
-                    <label htmlFor="name">Mobile Number:</label>
+                    <label htmlFor="name">Contact Number:</label>
                     <input
-                      className="w-100 px-2 py-1 mb-3"
+                      className="w-100 px-3 py-2 mb-3 border-0"
+                      name="contactNumber"
                       style={{
                         backgroundColor: "#eff0f5",
                         borderRadius: "5px",
                       }}
+                      defaultValue={user?.contactNumber}
                       type="number"
-                      placeholder="Enter Your Mobile Number"
+                      placeholder="Enter Your Contact Number"
                     />
                   </div>
                   <div className="col-md-6">
+                    <label htmlFor="name">Gender:</label>
+                    <div className="d-flex mt-2 mb-4">
+                      <input
+                        type="radio"
+                        className="d-inline me-2"
+                        name="gender"
+                        defaultValue={user?.gender}
+                        value="male"
+                      />{" "}
+                      <span>Male</span>
+                      <input
+                        type="radio"
+                        className="d-inline me-2 ms-3"
+                        name="gender"
+                        defaultValue={user?.gender}
+                        value="female"
+                      />{" "}
+                      <span>Female</span>
+                      <input
+                        type="radio"
+                        className="d-inline me-2 ms-3"
+                        name="gender"
+                        defaultValue={user?.gender}
+                        value="Custom"
+                      />{" "}
+                      <span>Custom</span>
+                    </div>
                     <label htmlFor="name">Address:</label>
                     <input
-                      className="w-100 px-2 py-1 mb-3"
+                      className="w-100 px-3 py-2 mb-3 border-0 text-capitalize"
                       style={{
                         backgroundColor: "#eff0f5",
                         borderRadius: "5px",
                       }}
                       type="text"
+                      defaultValue={user?.address}
+                      name="address"
                       placeholder="Enter Your Address"
                     />
                     <label htmlFor="name">Payment Method:</label>
                     <input
-                      className="w-100 px-2 py-1"
+                      className="w-100 px-3 py-2 border-0"
                       style={{
                         backgroundColor: "#eff0f5",
                         borderRadius: "5px",
                       }}
+                      name="paymentMethod"
+                      defaultValue="0221445524"
                       type="text"
                       placeholder="Enter Your Payment Method"
                     />
                   </div>
                 </div>
-              </div>
+              </form>
 
               <div className="tab-pane fade" id="order-history">
                 <h2>Order History</h2>
@@ -150,6 +208,15 @@ const profile = () => {
                       className="form-control"
                       id="phone"
                       value="123-456-7890"
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="address">Address</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="address"
+                      value="123 Main St, Anytown USA 12345"
                     />
                   </div>
                   <div className="form-group">
