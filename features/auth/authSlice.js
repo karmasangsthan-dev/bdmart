@@ -9,18 +9,36 @@ let initialState = {
 };
 
 export const fetchUser = createAsyncThunk("auth/fetchUser", async (token) => {
-  const response = await fetch(
-    `https://bangladesh-mart-server.onrender.com/api/v1/user/me`,
-    {
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  const response = await fetch("http://localhost:8080/api/v1/user/me", {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });
   const data = await response.json();
   // console.log(data);
   return data?.data;
 });
+export const googleLogin = createAsyncThunk(
+  "auth/googleLogin",
+  async (data) => {
+    const response = await fetch(
+      "http://localhost:8080/api/v1/user/socialLogin",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    );
+    const result = await response.json();
+    if (result?.status == "success") {
+      localStorage.setItem("accessToken", result?.token);
+      return data;
+    }
+    return data;
+  }
+);
 
 const authSlice = createSlice({
   name: "auth",
@@ -56,6 +74,25 @@ const authSlice = createSlice({
         state.error = "";
       })
       .addCase(fetchUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = false;
+        state.error = action.error.message;
+      })
+      .addCase(googleLogin.pending, (state, { payload }) => {
+        state.isLoading = true;
+        state.isError = false;
+        state.isSuccess = false;
+        state.error = "";
+      })
+      .addCase(googleLogin.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.user = payload;
+        state.error = "";
+      })
+      .addCase(googleLogin.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = false;

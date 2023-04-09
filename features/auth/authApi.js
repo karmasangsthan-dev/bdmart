@@ -18,7 +18,7 @@ const authApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      // invalidatesTags: ["User"],
+      invalidatesTags: ["User"],
     }),
     login: builder.mutation({
       query: (data) => ({
@@ -26,7 +26,7 @@ const authApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      // invalidatesTags: ["User"],
+      invalidatesTags: ["User"],
     }),
     socialLogin: builder.mutation({
       query: (data) => ({
@@ -34,11 +34,26 @@ const authApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["User"],
     }),
     updateProfileImage: builder.mutation({
-      query: ({ id, data }) => ({
+      query: ({ id, token, data }) => ({
         url: `/user/profile/image/${id}`,
         method: "PATCH",
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+        body: data,
+      }),
+      invalidatesTags: ["User"],
+    }),
+    updateProfile: builder.mutation({
+      query: ({ token, data, id }) => ({
+        url: `/user/profile/${id}`,
+        method: "PATCH",
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
         body: data,
       }),
       invalidatesTags: ["User"],
@@ -51,5 +66,6 @@ export const {
   useSignupMutation,
   useSocialLoginMutation,
   useUpdateProfileImageMutation,
+  useUpdateProfileMutation,
   useGetMeQuery,
 } = authApi;
