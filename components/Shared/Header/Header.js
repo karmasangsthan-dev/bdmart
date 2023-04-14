@@ -3,14 +3,15 @@ import React, { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
-import { logOut } from "../../../features/auth/authSlice";
 import auth from "../../../firebase.init";
 import NavMenu from "../NavMenu/NavMenu";
 import Loading from "../Loading/Loading";
+import Image from "next/image";
 const Header = () => {
-  const dispatch = useDispatch();
+
   const user = useSelector((state) => state.auth.user);
-  const [userSocial, loading2, error2] = useAuthState(auth);
+  console.log({user})
+
   useEffect(() => {
     window.addEventListener("scroll", function () {
       let header = this.document.querySelector("#strip2");
@@ -26,9 +27,7 @@ const Header = () => {
     });
   }, []);
 
-  if (loading2) {
-    return <Loading></Loading>;
-  }
+
   return (
     <div id="strip2">
       <div id="nav_Bar" className="navBar ">
@@ -53,7 +52,16 @@ const Header = () => {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  <img className="flag-img" src="images/flag.png" alt="" />
+                  <Image
+                    className="flag-img"
+                    src="/images/flag.png"
+                    alt="country"
+                    width={18}
+                    height={14}
+
+                    loading="eager"
+                  />
+
                   <span className="lan-head">/Country/Currency</span>
                 </button>
                 <div id="drop-nav-down" className="dropdown-menu-1">
@@ -119,6 +127,7 @@ const Header = () => {
                   <div className="d-flex ">
                     <p className="text-warning px-2 rounded-2 text-capitalize ">
                       {user?.fullName}
+
                     </p>
                   </div>
                 )}
@@ -134,8 +143,16 @@ const Header = () => {
               <i className="fas bar fa-bars"></i>
             </div>
             <div className="logo">
-              <Link href="/" prefetch={false}>
-                <img src="images/logo" alt="" />
+              <Link href="/" >
+                <Image
+                  className="flag-img"
+                  src="/images/logo2.jpg"
+                  alt="country"
+                  width={190}
+                  height={70}
+
+                />
+
               </Link>
             </div>
             <div className="search-box">
@@ -156,7 +173,16 @@ const Header = () => {
               </div>
               <div className="cart-icon ms-4">
                 <Link href="/cart">
-                  <img title="cart" className="" src="images/cart.png" alt="" />
+                  <Image
+                    className="flag-img"
+                    src="/images/cart.png"
+                    alt="country"
+                    width={40}
+                    height={40}
+
+                    loading="eager"
+                  />
+
                 </Link>
               </div>
             </div>
@@ -187,7 +213,7 @@ const Header = () => {
                     aria-expanded="false"
                     aria-controls="panelsStayOpen-collapseThree"
                   >
-                    <span> Departments</span>
+                    <span style={{fontSize:"15px"}}> Departments</span>
                   </button>
                 </h2>
                 <div

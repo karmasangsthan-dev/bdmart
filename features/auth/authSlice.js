@@ -15,12 +15,13 @@ export const fetchUser = createAsyncThunk("auth/fetchUser", async (token) => {
     },
   });
   const data = await response.json();
-  // console.log(data);
+  console.log(data);
   return data?.data;
 });
 export const googleLogin = createAsyncThunk(
   "auth/googleLogin",
   async (data) => {
+    console.log('data in authslice',data)
     const response = await fetch(
       "http://localhost:8080/api/v1/user/socialLogin",
       {

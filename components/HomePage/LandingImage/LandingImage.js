@@ -1,11 +1,22 @@
+import Image from 'next/image';
 import React from 'react';
 
 const LandingImage = () => {
     return (
         <>
             <div className="landing-img my-4">
-                <img src="/images/image (12).png"
-                    alt="" />
+                <div style={{ width: '100%', height: 'auto', position: 'relative' }}>
+                    <Image
+                        className="d-block "
+                        alt='Mountains'
+                        src="/images1/image(12).png"
+                        loading="eager"
+                        layout="responsive"
+                        width={100}
+                        height={100}
+                    />
+                </div>
+
             </div>
         </>
     );

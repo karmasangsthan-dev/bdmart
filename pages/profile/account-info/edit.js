@@ -9,7 +9,7 @@ import auth from "../../../firebase.init";
 import { toast } from "react-hot-toast";
 import Loading from "../../../components/Shared/Loading/Loading";
 
-import Layout from "../../../components/LayOut";
+import Layout from "../../../components/Layout";
 import ProfileSideNav from "../../../components/Profile/ProfileSideNav";
 import { useUpdateProfileMutation } from "../../../features/auth/authApi";
 import { fetchUser } from "../../../features/auth/authSlice";
@@ -35,20 +35,21 @@ const profile = () => {
     const contactNumber = e.target.contactNumber.value;
     const gender = e.target.gender.value;
     const address = e.target.address.value;
-    const data = { fullName, email, contactNumber, gender, address };
+    const paymentMethod = e.target.paymentMethod.value;
+
+    const data = { fullName, email, contactNumber, gender, address , paymentMethod };
 
     updateProfile({ id, token, data });
   };
 
   useEffect(() => {
     if (isSuccess) {
+      router.push('/profile')
       toast.success("Updated successful", { id: "updateProfile" });
       dispatch(fetchUser(token));
     }
   }, [isSuccess]);
-  // if (loading2) {
-  //   return <Loading></Loading>;
-  // }
+  
 
   return (
     <Layout title="Edit Profile - Bangladesh Mart">
@@ -77,7 +78,7 @@ const profile = () => {
                   <div className="col-md-6">
                     <label htmlFor="name">Full Name:</label>
                     <input
-                      className="w-100 px-3 py-2 mb-3 border-0 text-capitalize"
+                      className="w-100 px-3 py-2 mb-3 border-0 "
                       style={{
                         backgroundColor: "#eff0f5",
                         borderRadius: "5px",
@@ -163,7 +164,7 @@ const profile = () => {
                         borderRadius: "5px",
                       }}
                       name="paymentMethod"
-                      defaultValue="0221445524"
+                      defaultValue={user?.paymentMethod}
                       type="text"
                       placeholder="Enter Your Payment Method"
                     />

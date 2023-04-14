@@ -4,6 +4,8 @@ import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { fetchUser } from "../features/auth/authSlice";
 import Script from "next/script";
+import Link from "next/link";
+import Footer from "./Shared/Footer/Footer";
 
 const Layout = ({ children, title = "Bangladesh Mart" }) => {
   const dispatch = useDispatch();
@@ -11,27 +13,29 @@ const Layout = ({ children, title = "Bangladesh Mart" }) => {
     const token = localStorage.getItem("accessToken");
     dispatch(fetchUser(token));
   }, [dispatch]);
-  return (
-    <div>
-      <Head>
-        <title>{title}</title>
-        <meta name="description" content="Bangladesh Mart" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <Script
-        src="https://kit.fontawesome.com/6fd519cc43.js"
-        crossorigin="anonymous"
-      />
 
-      <Script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
-        crossOrigin="anonymous"
-      />
+  useEffect(() => {
+    const handleUnload = (event) => {
+      // Close IndexedDB connection before navigating away from the page
+      if (indexedDB) {
+        indexedDB.close();
+      }
+    };
+    window.addEventListener("unload", handleUnload);
+    return () => {
+      window.removeEventListener("unload", handleUnload);
+    };
+  }, []);
+
+  return (
+    <div style={{ minHeight: "120vh" }}>
+      <Head>
+
+      </Head>
+      <Script src="https://kit.fontawesome.com/a3939c0da5.js" crossorigin="anonymous"></Script>
       <Header />
+
       <main>{children}</main>
-      {/* <Footer /> */}
     </div>
   );
 };

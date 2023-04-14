@@ -9,14 +9,13 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../../../features/auth/authSlice";
 import auth from "../../../firebase.init";
 import { useSignOut } from "react-firebase-hooks/auth";
 import { useRouter } from "next/router";
-import Loading from "../Loading/Loading";
+import Image from "next/image";
 const NavMenu = () => {
   const router = useRouter();
   const [signOut, loading, error] = useSignOut(auth);
@@ -76,7 +75,15 @@ const NavMenu = () => {
             >
               <Avatar sx={{ width: 32, height: 32 }}>
                 {" "}
-                {<img className="img-fluid" src={avatar} alt="" />}{" "}
+                {/* {<img className="img-fluid" src={avatar} alt="" />}{" "} */}
+                <Image
+                  layout="responsive"
+                  width={100}
+                  height={100}
+                  src={avatar}
+                  className=" "
+                  alt=""
+                />
               </Avatar>
             </IconButton>
           </Tooltip>
@@ -118,7 +125,7 @@ const NavMenu = () => {
           transformOrigin={{ horizontal: "right", vertical: "top" }}
           anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
         >
-          <img
+          {/* <img
             style={{
               width: "56px",
               height: "56px",
@@ -130,20 +137,29 @@ const NavMenu = () => {
               user?.profilePicture
                 ? user?.profilePicture
                 : "https://i.ibb.co/x258KZb/profile.jpg"
-            }
-            alt="user"
-          />
+            } */}
+
+          <div style={{ height: '56px', position: 'relative' }}>
+            <Image
+              style={{ height: '100%', borderRadius: '50%', margin: 'auto' }}
+              className="d-block "
+              width={56}
+              height={56}
+              src={avatar}
+              loading="eager"
+              alt='profile-pic'
+            />
+          </div>
           <h4 className="text-center">{user?.fullName}</h4>
           <MenuItem onClick={() => router.push("/profile")}>
             <Avatar /> Profile
           </MenuItem>
-          <MenuItem onClick={() => router.push("/my-orders")}>
+          <MenuItem onClick={() => router.push("/profile/order-history")}>
             <Avatar /> My Orders
           </MenuItem>
           <MenuItem onClick={() => router.push("/dashboard")}>
             <Avatar /> Admin Panel
           </MenuItem>
-
           <MenuItem>
             <ListItemIcon>
               <Settings fontSize="small" />

@@ -1,41 +1,69 @@
+import Image from 'next/image';
 import { Carousel } from 'react-bootstrap';
 
 const Banner = () => {
     return (
         <div>
-            {/* <img src="/images/Banner.png" alt="" /> */}
+
             <Carousel>
                 <Carousel.Item>
-                    <img
-                        className="d-block w-100"
-                        src="/images/Banner.png"
-                        alt="First slide"
-                    />
+                    <div style={{ width: '100%', height: 'auto', position: 'relative' }}>
+                        <Image
+                            className="d-block "
+                            alt='Mountains'
+                            src="/images/banner.png"
+                            width={500}
+                            height={500}
+                            layout="responsive"
+                            objectFit="contain"
+                            loading="eager"
+                        />
+                    </div>
 
                 </Carousel.Item>
                 <Carousel.Item>
-                    <img
-                        className="d-block w-100"
-                        src="/images/banner3.png"
-                        alt="Second slide"
-                    />
+                    <div style={{ width: '100%', height: 'auto', position: 'relative' }}>
+                        <Image
+                            className="d-block "
+                            alt='Mountains'
+                            src="/images/banner2.png"
+                            width={500}
+                            height={500}
+                            layout="responsive"
+                            objectFit="contain"
+                            loading="eager"
+                        />
+                    </div>
 
                 </Carousel.Item>
                 <Carousel.Item>
-                    <img
-                        className="d-block w-100"
-                        src="/images/banner2.png"
-                        alt="Third slide"
-                    />
+                    <div style={{ width: '100%', height: 'auto', position: 'relative' }}>
+                        <Image
+                            className="d-block "
+                            alt='Mountains'
+                            src="/images/banner3.png"
+                            width={500}
+                            height={500}
+                            layout="responsive"
+                            objectFit="contain"
+                            loading="eager"
+                        />
+                    </div>
 
                 </Carousel.Item>
                 <Carousel.Item>
-                    <img
-                        className="d-block w-100"
-                        src="/images/banner4.png"
-                        alt="Third slide"
-                    />
-
+                    <div style={{ width: '100%', height: 'auto', position: 'relative' }}>
+                        <Image
+                            className="d-block "
+                            alt='Mountains'
+                            src="/images/banner4.png"
+                            width={500}
+                            height={500}
+                            layout="responsive"
+                            objectFit="contain"
+                            loading="eager"
+                        />
+                    </div>
                 </Carousel.Item>
             </Carousel>
         </div>

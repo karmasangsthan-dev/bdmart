@@ -15,7 +15,7 @@ import {
 import { setUser } from "../features/auth/authSlice";
 import auth from "../firebase.init";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import Layout from "../components/LayOut";
+import Layout from "../components/Layout";
 import GoogleLogin from "../components/Shared/SocialLogin/GoogleLogin";
 
 const signin = () => {

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import auth from "../../../firebase.init";
 import { useEffect } from "react";
 import { fetchUser } from "../../../features/auth/authSlice";
-import Layout from "../../LayOut";
+import Layout from "../../Layout";
 
 const RequreAuth = (WrappedComponent) => {
   const AuthenticatedComponent = (props) => {

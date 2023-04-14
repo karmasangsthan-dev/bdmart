@@ -6,7 +6,7 @@ import auth from "../../firebase.init";
 import Loading from "../../components/Shared/Loading/Loading";
 
 import RequreAuth from "../../components/Shared/RequireAuth/RequireAuth";
-import Layout from "../../components/LayOut";
+import Layout from "../../components/Layout";
 
 import ProfileSideNav from "../../components/Profile/ProfileSideNav";
 import { useSelector } from "react-redux";
@@ -14,11 +14,8 @@ import { BsPencil } from "react-icons/bs";
 
 const profile = () => {
   const router = useRouter();
-  const [userSocial, loading2, error2] = useAuthState(auth);
-  const user = useSelector((state) => state.auth.user);
-  if (loading2) {
-    return <Loading></Loading>;
-  }
+  const {user,isLoading} = useSelector((state) => state.auth);
+
 
   return (
     <Layout title="Profile - Bangladesh Mart">
@@ -32,40 +29,38 @@ const profile = () => {
               <div className="tab-pane fade show active" id="account-info">
                 <div className="d-flex justify-content-between align-items-center">
                   <h2>Account Information</h2>
-                  <p
+                  <p 
                     onClick={() => {
                       router.push("/profile/account-info/edit");
                     }}
-                    className=" text-xl bg-warning bg-opacity-75  text-white  px-3 rounded py-2"
+                    className=" text-xl bg-warning bg-opacity-75 px-3 rounded py-2 edit-profile-btn"
                   >
                     <BsPencil className="" />{" "}
-                    <span className="ms-1">Edit Profile</span>
+                    <span className="ms-1 ">Edit Profile</span>
                   </p>
                 </div>
                 <hr />
                 <div className="row">
                   <div className="col-md-6">
-                    <p className="text-capitalize">
-                      <strong>Name:</strong> {user?.fullName}
-                      {userSocial?.displayName}
+                    <p className="">
+                      <strong className="">Name:</strong> {user?.fullName}
                     </p>
                     <p>
                       <strong>Email:</strong> {user?.email}
-                      {userSocial?.email}
                     </p>
                     <p>
-                      <strong>Phone:</strong> 123-456-7890
+                      <strong>Phone:</strong> {user?.contactNumber}
                     </p>
                   </div>
                   <div className="col-md-6">
                     <p>
-                      <strong>Address:</strong> 123 Main St, Anytown USA 12345
+                      <strong>Address:</strong> {user?.address}
                     </p>
                     <p>
-                      <strong>Payment Method:</strong> Visa **** **** **** 1234
+                      <strong>Payment Method:</strong> {user?.paymentMethod ? user?.paymentMethod : 'Visa **** **** **** 1234'}
                     </p>
                     <p>
-                      <strong>Account Status :</strong> Active
+                      <strong>Account Status :</strong> <span style={{color:'#0bc911'}} className="">Active</span>
                     </p>
                   </div>
                 </div>

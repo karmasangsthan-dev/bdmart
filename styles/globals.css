@@ -332,10 +332,10 @@ CoMmOn CsS EnD
 }
 
 .flag-img {
-  width: 18px;
+  /* width: 18px; */
   margin-top: -3px;
   margin-right: 3px;
-  height: 14px;
+  /* height: 14px; */
 }
 
 .English {
@@ -349,7 +349,8 @@ CoMmOn CsS EnD
 a .sign-text {
   font-size: 13.5px !important;
 }
-.sign-icons a{
+
+.sign-icons a {
   text-decoration: none;
 }
 
@@ -456,6 +457,7 @@ a .sign-text {
     margin-left: 10px;
     display: none;
   }
+
   .user-area {
     margin-left: 10px;
   }
@@ -497,7 +499,7 @@ a .sign-text {
 /* Style the search field */
 form.example input[type="text"] {
   padding: 10px;
-  font-size: 17px;
+  font-size: 15px;
   border: 2px solid #faa72c;
   float: left;
   border-top-left-radius: 5px;
@@ -1113,7 +1115,7 @@ MGA CONTENT NAV
 .frombar ul a {
   color: rgb(32, 32, 32);
   font-weight: 600;
-  font-size: 16px;
+  font-size: 14px;
   font-family: sans-serif;
   text-decoration: none;
 }
@@ -2096,5 +2098,62 @@ a.slide_btn {
 .row {
   display: flex;
   flex-direction: row;
+}
+
+/* shop components  */
+
+.sidebar-shop .widget {
+  color: #333;
+  margin: 0 0 2rem;
+  border-bottom: 0.1rem solid #ebebeb;
+}
+
+.widget-clean {
+  display: flex;
+  align-items: center;
+  padding-top: 0.5rem;
+  padding-bottom: 2.3rem;
+}
+
+.widget-clean a {
+  display: inline-block;
+  font-weight: 400;
+  font-size: 1.2rem;
+  margin-left: auto;
+}
+
+.sidebar-filter-clear {
+  text-transform: capitalize;
+  margin-left: auto;
+  color: #a6c76c;
+}
+
+.categories li {
+  list-style-type: none;
+  color: #333;
+  font-size: 14px;
+}
+
+.page-content {
+  font-size: 14px;
+}
+
+.form-check-input:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+
+
+.circle-checkbox {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-right: 10px;
+  position: relative;
+  vertical-align: middle;
 }
 

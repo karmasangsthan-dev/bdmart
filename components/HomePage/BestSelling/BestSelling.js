@@ -25,6 +25,7 @@ const SamplePrevArrow = (props) => {
 };
 
 const BestSelling = () => {
+  
   const settings = {
     dots: false,
     infinite: true,

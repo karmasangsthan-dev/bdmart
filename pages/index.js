@@ -4,7 +4,7 @@ import BestSelling from "../components/HomePage/BestSelling/BestSelling";
 import LandingImage from "../components/HomePage/LandingImage/LandingImage";
 import ShopDepartments from "../components/HomePage/Department/ShopDepartments";
 
-import Layout from "../components/LayOut";
+import Layout from "../components/Layout";
 
 export default function Home() {
   return (

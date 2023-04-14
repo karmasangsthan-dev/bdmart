@@ -24,6 +24,10 @@
     text-align: center;
     margin-top: -20px;
 }
+.edit-profile-btn{
+    cursor: pointer;
+    color: white;
+}
 
 .profile-usertitle-name {
     margin-bottom: 7px;

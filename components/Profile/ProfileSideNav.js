@@ -6,6 +6,7 @@ import { useUpdateProfileImageMutation } from "../../features/auth/authApi";
 import { AiFillCamera } from "react-icons/ai";
 import { fetchUser } from "../../features/auth/authSlice";
 import { toast } from "react-hot-toast";
+import Image from "next/image";
 export default function ProfileSideNav() {
   const [token, setToken] = useState();
   const inputFile = useRef(null);
@@ -57,12 +58,24 @@ export default function ProfileSideNav() {
         style={{ flexDirection: "column" }}
         className="profile-userpic d-flex justify-content-center align-items-center"
       >
-        <img
+        {/* <Image
           className="profile-img"
           style={{ borderRadius: "50%" }}
           src={user?.profilePicture || "https://i.ibb.co/x258KZb/profile.jpg"}
           alt=""
-        />
+        /> */}
+
+        <div style={{ width: '130px', height: '130px' }}>
+          <Image
+            style={{ width: '100%', height: '100%', borderRadius: '50%' }}
+            layout="responsive"
+            width={100}
+            height={100}
+            src={user?.profilePicture || "https://i.ibb.co/x258KZb/profile.jpg"}
+            className=" "
+            alt=""
+          />
+        </div>
         <input
           type="file"
           id="file"
@@ -84,12 +97,12 @@ export default function ProfileSideNav() {
       </div>
       <div className="profile-usermenu">
         <ul className="nav flex-column">
-          <li className="nav-item">
-            <a className="nav-link active" href="#">
+          <li onClick={() => router.push('/profile')} className="nav-item">
+            <a className="nav-link " href="#">
               Account Information
             </a>
           </li>
-          <li className="nav-item">
+          <li onClick={() => router.push('profile/order-history')} className="nav-item">
             <a className="nav-link" href="#">
               Order History
             </a>

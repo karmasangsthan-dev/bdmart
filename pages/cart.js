@@ -2,7 +2,8 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { Table } from "react-bootstrap";
 import Header from "../components/Shared/Header/Header";
-import Layout from "../components/LayOut";
+import Layout from "../components/Layout";
+import Image from "next/image";
 
 const Cart = () => {
   const [count, setCount] = useState(1);
@@ -34,7 +35,7 @@ const Cart = () => {
   return (
     <Layout title="Cart - Bangladesh Mart">
       <div style={{ minHeight: "120vh" }}>
-        <Header></Header>
+
         <div className="container">
           <Table responsive>
             <thead>
@@ -50,12 +51,16 @@ const Cart = () => {
             <tbody>
               <tr>
                 <td>
-                  <img
-                    width="60px"
-                    height="60px"
-                    src="https://upload.wikimedia.org/wikipedia/commons/9/90/Hapus_Mango.jpg"
-                    alt=""
-                  />
+                  <div style={{ width: '50px', height: 'auto' }}>
+                    <Image
+                      layout="responsive"
+                      width={100}
+                      height={100}
+                      src="https://upload.wikimedia.org/wikipedia/commons/9/90/Hapus_Mango.jpg"
+                      className=" "
+                      alt=""
+                    />
+                  </div>
                 </td>
                 <td>
                   <h5>Mango art</h5>
@@ -94,12 +99,16 @@ const Cart = () => {
               </tr>
               <tr>
                 <td>
-                  <img
-                    width="60px"
-                    height="60px"
-                    src="https://upload.wikimedia.org/wikipedia/commons/9/90/Hapus_Mango.jpg"
-                    alt=""
-                  />
+                  <div style={{ width: '50px', height: 'auto' }}>
+                    <Image
+                      layout="responsive"
+                      width={100}
+                      height={100}
+                      src="https://upload.wikimedia.org/wikipedia/commons/9/90/Hapus_Mango.jpg"
+                      className=" "
+                      alt=""
+                    />
+                  </div>
                 </td>
                 <td>
                   <h5>Mango art</h5>
@@ -138,12 +147,16 @@ const Cart = () => {
               </tr>
               <tr>
                 <td>
-                  <img
-                    width="60px"
-                    height="60px"
-                    src="https://upload.wikimedia.org/wikipedia/commons/9/90/Hapus_Mango.jpg"
-                    alt=""
-                  />
+                  <div style={{ width: '50px', height: 'auto' }}>
+                    <Image
+                      layout="responsive"
+                      width={100}
+                      height={100}
+                      src="https://upload.wikimedia.org/wikipedia/commons/9/90/Hapus_Mango.jpg"
+                      className=" "
+                      alt=""
+                    />
+                  </div>
                 </td>
                 <td>
                   <h5>Mango art</h5>
@@ -182,12 +195,16 @@ const Cart = () => {
               </tr>
               <tr>
                 <td>
-                  <img
-                    width="60px"
-                    height="60px"
-                    src="https://upload.wikimedia.org/wikipedia/commons/9/90/Hapus_Mango.jpg"
-                    alt=""
-                  />
+                  <div style={{ width: '50px', height: 'auto' }}>
+                    <Image
+                      layout="responsive"
+                      width={100}
+                      height={100}
+                      src="https://upload.wikimedia.org/wikipedia/commons/9/90/Hapus_Mango.jpg"
+                      className=" "
+                      alt=""
+                    />
+                  </div>
                 </td>
                 <td>
                   <h5>Mango art</h5>
