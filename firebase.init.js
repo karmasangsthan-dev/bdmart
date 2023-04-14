@@ -7,12 +7,12 @@ import { getAuth } from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyArJ5PIwjL3zU2S5eh8bnPCnSyqlfA2qV8",
-    authDomain: "bangladesh-mart.firebaseapp.com",
-    projectId: "bangladesh-mart",
-    storageBucket: "bangladesh-mart.appspot.com",
-    messagingSenderId: "75493619043",
-    appId: "1:75493619043:web:e18fcc0e57bb5597578f56"
+    apiKey: process.env.NEXT_PUBLIC_API_KEY,
+    authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
+    projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
+    storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET,
+    messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
+    appId: process.env.NEXT_PUBLIC_APP_ID
 };
 
 // Initialize Firebase

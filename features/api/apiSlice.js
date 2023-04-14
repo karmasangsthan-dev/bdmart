@@ -4,7 +4,7 @@ const apiSlice = createApi({
   reducerPath: "apiSlice",
   baseQuery: fetchBaseQuery({
     // baseUrl: `${process.env.NEXT_APP_DEV_URL}`,
-    baseUrl: "http://localhost:8080/api/v1",
+    baseUrl: `${process.env.NEXT_PUBLIC_BACKEND_SITE_LINK}/api/v1`,
   }),
   tagTypes: ["User"],
   endpoints: (builder) => ({}),

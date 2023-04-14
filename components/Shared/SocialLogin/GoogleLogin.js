@@ -14,10 +14,8 @@ export default function GoogleLogin() {
   const handleGoogleSignIn = () => {
     signInWithGoogle();
   };
-  console.log('user under google login', user)
   useEffect(() => {
     if (user) {
-      console.log('line number 20',user)
       const email = user?.user?.email;
       const fullName = user?.user?.displayName;
       const providerId = "firebase";

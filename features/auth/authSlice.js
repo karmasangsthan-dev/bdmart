@@ -9,7 +9,7 @@ let initialState = {
 };
 
 export const fetchUser = createAsyncThunk("auth/fetchUser", async (token) => {
-  const response = await fetch("http://localhost:8080/api/v1/user/me", {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_SITE_LINK}/api/v1/user/me`, {
     headers: {
       authorization: `Bearer ${token}`,
     },
@@ -23,7 +23,7 @@ export const googleLogin = createAsyncThunk(
   async (data) => {
     console.log('data in authslice',data)
     const response = await fetch(
-      "http://localhost:8080/api/v1/user/socialLogin",
+      `${process.env.NEXT_PUBLIC_BACKEND_SITE_LINK}/api/v1/user/socialLogin`,
       {
         method: "POST",
         headers: {
