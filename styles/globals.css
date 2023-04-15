@@ -2157,3 +2157,85 @@ a.slide_btn {
   vertical-align: middle;
 }
 
+.shop .shop-old-price {
+  color: #ccc;
+  text-decoration: line-through;
+}
+.shop-categories li{
+  list-style-type: none;
+}
+
+.product-label.label-top {
+  background-color: #7dd2ea;
+  color: white;
+  position: relative;
+  left: 12px;
+  top: 15px;
+  padding: 2px 5px;
+  z-index: 3;
+}
+
+.product-body {
+  text-align: center;
+  margin-top: -25px;
+}
+
+.product-body a {
+  text-decoration: none;
+  color: black;
+}
+
+.product-body .new-price p {
+  color: #26d5fd;
+}
+
+.shop-products {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.shop-single-product {
+  box-shadow: 2px 2px 16px #f0f0f0;
+}
+
+.shop-single-product:hover {
+  box-shadow: 5px 5px 16px #cfcfcf;
+}
+
+.ratings-container {
+  display: flex;
+  justify-content: space-evenly;
+
+}
+
+.shop-add-to-cart-button {
+  position: relative;
+  bottom: 33px;
+  border: none;
+  padding: 4px 0px;
+  width: 100%;
+  background-color: #e99e2d;
+  color: white;
+  text-decoration: none;
+  visibility: hidden;
+  transition: transform 0.5s ease-out;
+  transform: translateY(20%);
+}
+
+.shop-single-product:hover .shop-add-to-cart-button {
+  visibility: visible;
+  transform: translateY(0%);
+}
+
+@media only screen and (max-width:576px) {
+  .shop-products {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+@media only screen and (min-width: 577px) and (max-width: 992px) {
+  .shop-products {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
