@@ -7,8 +7,9 @@ import auth from "../../../firebase.init";
 import NavMenu from "../NavMenu/NavMenu";
 import Loading from "../Loading/Loading";
 import Image from "next/image";
+import { useRouter } from "next/router";
 const Header = () => {
-
+  const router = useRouter();
   const user = useSelector((state) => state.auth.user);
   console.log({user})
 
@@ -1048,8 +1049,8 @@ const Header = () => {
                     <a href="">
                       <li className="inner-li">Customer Services</li>
                     </a>
-                    <a href="">
-                      <li className="inner-li">Deals</li>
+                    <a href="#">
+                      <li onClick={()=>router.push('/shop')} className="inner-li">Shop</li>
                     </a>
                   </ul>
                 </div>
