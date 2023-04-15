@@ -7,13 +7,11 @@ export default function Product({ item }) {
 
   const handleAddToCart = (event, productId) => {
     setSelectedProduct(productId);
-  }
+  };
   const handleQunatityIncrement = (id) => {
-    toast(id)
-  }
-  const handleQunatityDecrement = (id) => {
-    toast(id)
-  }
+    toast(id);
+  };
+  const handleQunatityDecrement = (id) => {};
 
   return (
     <section key={item._id} className="product-link">
@@ -25,7 +23,6 @@ export default function Product({ item }) {
             width={1000}
             height={1000}
           />
-
         </picture>
         <div className="main-detail ">
           <div className="item-name">{item.name}</div>
@@ -35,8 +32,8 @@ export default function Product({ item }) {
           <del>{item.oldPrice}.00$</del>
         </div>
         <div className="save-price">{item.savedPrice}.00$</div>
-        <div id="cart-btn" className="cart-btn">
-          {selectedProduct === item._id ? (
+        <div id="cart-btn" className="cart-btn d-flex ">
+          {/* {selectedProduct === item._id ? (
             <div className="plus-btn">
               <span onClick={()=>handleQunatityDecrement(item?._id)} className="remove-btn"><i className="fas fa-minus"></i></span>
               <span id="cart-num-3">1</span>
@@ -44,7 +41,11 @@ export default function Product({ item }) {
             </div>
           ) : (
             <button onClick={(event) => handleAddToCart(event, item._id)}>Add to Cart<i className="far plus-ico fa-plus-square"></i></button>
-          )}
+          )} */}
+          <button onClick={(event) => handleAddToCart(event, item._id)}>
+            Add to Cart
+          </button>
+          <button>View Details</button>
         </div>
       </div>
     </section>

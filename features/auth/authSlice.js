@@ -1,7 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 let initialState = {
-  user: {},
+  user: {
+    cart: [],
+  },
   isLoading: false,
   isError: false,
   isSuccess: false,
@@ -9,19 +11,22 @@ let initialState = {
 };
 
 export const fetchUser = createAsyncThunk("auth/fetchUser", async (token) => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_SITE_LINK}/api/v1/user/me`, {
-    headers: {
-      authorization: `Bearer ${token}`,
-    },
-  });
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_SITE_LINK}/api/v1/user/me`,
+    {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    }
+  );
   const data = await response.json();
-  console.log(data);
+
   return data?.data;
 });
 export const googleLogin = createAsyncThunk(
   "auth/googleLogin",
   async (data) => {
-    console.log('data in authslice',data)
+    console.log("data in authslice", data);
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_SITE_LINK}/api/v1/user/socialLogin`,
       {
@@ -49,6 +54,7 @@ const authSlice = createSlice({
       state.user = {
         email: "",
         role: "",
+        cart: [],
       };
     },
     setUser: (state, action) => {

@@ -9,9 +9,9 @@ import Layout from "../components/Layout";
 export default function Home() {
   return (
     <Layout>
-      <Banner></Banner>
-      <LandingImage></LandingImage>
-      <BestSelling></BestSelling>
+      <Banner />
+      {/* <LandingImage/> */}
+      <BestSelling />
       <ShopDepartments />
     </Layout>
   );
