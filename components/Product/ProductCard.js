@@ -26,7 +26,7 @@ export default function ProductCard({ product }) {
       const userId = user?._id;
       const productId = product?._id;
       if (user?.cart?.find((pro) => pro?._id === product?._id)) {
-        return toast("Product already added", { id: "addToCart" });
+        return toast.error("Product already added", { id: "addToCart" });
       }
       addProductToCart({ token, userId, productId });
       dispatch(addToCart(product));

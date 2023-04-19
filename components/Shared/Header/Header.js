@@ -178,11 +178,16 @@ const Header = () => {
                   />
                 </Link>
                 <span
-                  className="bg-danger d-inline-block rounded-circle text-white fs-6  fw-bold"
-                  style={{ padding: "2px 5px", margin: "0 -15px" }}
+                  className=" d-inline-block text-white rounded-circle bg-danger fs-6  fw-semibold border"
+                  style={{
+                    padding: "1px 5px",
+                    margin: "0 -15px",
+                  }}
                 >
                   {" "}
-                  {user?.cart?.length}
+                  {user?.cart?.length < 10
+                    ? `0${user?.cart?.length}`
+                    : user?.cart.length}
                 </span>
               </div>
             </div>
