@@ -57,6 +57,12 @@ const authSlice = createSlice({
         cart: [],
       };
     },
+    addToCart: (state, action) => {
+      state.user = {
+        ...state.user,
+        cart: [...state.user.cart, action.payload],
+      };
+    },
     setUser: (state, action) => {
       state.user = action.payload;
       state.isLoading = false;
@@ -108,5 +114,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { logOut, setUser } = authSlice.actions;
+export const { logOut, setUser, addToCart } = authSlice.actions;
 export default authSlice.reducer;

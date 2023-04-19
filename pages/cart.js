@@ -4,8 +4,10 @@ import { Table } from "react-bootstrap";
 import Header from "../components/Shared/Header/Header";
 import Layout from "../components/Layout";
 import Image from "next/image";
+import { useSelector } from "react-redux";
 
 const Cart = () => {
+  const cart = useSelector((state) => state.auth.user?.cart) || [];
   const [count, setCount] = useState(1);
   const handleIncrement = () => {
     if (count < 10) {
@@ -17,25 +19,20 @@ const Cart = () => {
       setCount(count - 1);
     }
   };
+  console.log(cart);
 
-  const cartItems = [
-    { id: 1, name: "Product 1", price: 10, quantity: 2 },
-    { id: 2, name: "Product 2", price: 20, quantity: 1 },
-    { id: 3, name: "Product 3", price: 5, quantity: 4 },
-  ];
   const removeFromCart = () => {
     // console.log('removed');
   };
 
-  const totalPrice = cartItems.reduce(
-    (acc, curr) => acc + curr.price * curr.quantity,
-    0
-  );
+  // const totalPrice = cartItems.reduce(
+  //   (acc, curr) => acc + curr.price * curr.quantity,
+  //   0
+  // );
 
   return (
     <Layout title="Cart - Bangladesh Mart">
       <div style={{ minHeight: "120vh" }}>
-
         <div className="container">
           <Table responsive>
             <thead>
@@ -49,198 +46,64 @@ const Cart = () => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>
-                  <div style={{ width: '50px', height: 'auto' }}>
-                    <Image
-                      layout="responsive"
-                      width={100}
-                      height={100}
-                      src="https://upload.wikimedia.org/wikipedia/commons/9/90/Hapus_Mango.jpg"
-                      className=" "
-                      alt=""
+              {cart?.map((product) => (
+                <tr key={product?._id}>
+                  <td>
+                    <div style={{ width: "50px", height: "auto" }}>
+                      <Image
+                        layout="responsive"
+                        width={100}
+                        height={100}
+                        src={product?.thumbnail}
+                        className=" "
+                        alt=""
+                      />
+                    </div>
+                  </td>
+                  <td>
+                    <h5 className="text-capitalize">{product?.title}</h5>
+                  </td>
+                  <td>
+                    {(product.price - product.discountPercentage).toFixed(2)} $
+                  </td>
+                  <td>
+                    <button
+                      onClick={handleDecrement}
+                      style={{ padding: "0 3px", border: "none" }}
+                      className=""
+                    >
+                      -
+                    </button>
+                    <input
+                      style={{ width: "25px" }}
+                      className="text-center border-0"
+                      type="text"
+                      value={count}
                     />
-                  </div>
-                </td>
-                <td>
-                  <h5>Mango art</h5>
-                </td>
-                <td>$57</td>
-                <td>
-                  <button
-                    onClick={handleDecrement}
-                    style={{ padding: "0 3px", border: "none" }}
-                    className=""
-                  >
-                    -
-                  </button>
-                  <input
-                    style={{ width: "25px" }}
-                    className="text-center border-0"
-                    type="text"
-                    value={count}
-                  />
-                  <button
-                    onClick={handleIncrement}
-                    style={{ padding: "0 3px", border: "none" }}
-                  >
-                    +
-                  </button>
-                </td>
-                <td>$ {count * 57}</td>
-                <td>
-                  <button
-                    style={{ padding: "0 5px" }}
-                    className="text-danger border-0"
-                  >
-                    X
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div style={{ width: '50px', height: 'auto' }}>
-                    <Image
-                      layout="responsive"
-                      width={100}
-                      height={100}
-                      src="https://upload.wikimedia.org/wikipedia/commons/9/90/Hapus_Mango.jpg"
-                      className=" "
-                      alt=""
-                    />
-                  </div>
-                </td>
-                <td>
-                  <h5>Mango art</h5>
-                </td>
-                <td>$57</td>
-                <td>
-                  <button
-                    onClick={handleDecrement}
-                    style={{ padding: "0 3px", border: "none" }}
-                    className=""
-                  >
-                    -
-                  </button>
-                  <input
-                    style={{ width: "25px" }}
-                    className="text-center border-0"
-                    type="text"
-                    value={count}
-                  />
-                  <button
-                    onClick={handleIncrement}
-                    style={{ padding: "0 3px", border: "none" }}
-                  >
-                    +
-                  </button>
-                </td>
-                <td>$ {count * 57}</td>
-                <td>
-                  <button
-                    style={{ padding: "0 5px" }}
-                    className="text-danger border-0"
-                  >
-                    X
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div style={{ width: '50px', height: 'auto' }}>
-                    <Image
-                      layout="responsive"
-                      width={100}
-                      height={100}
-                      src="https://upload.wikimedia.org/wikipedia/commons/9/90/Hapus_Mango.jpg"
-                      className=" "
-                      alt=""
-                    />
-                  </div>
-                </td>
-                <td>
-                  <h5>Mango art</h5>
-                </td>
-                <td>$57</td>
-                <td>
-                  <button
-                    onClick={handleDecrement}
-                    style={{ padding: "0 3px", border: "none" }}
-                    className=""
-                  >
-                    -
-                  </button>
-                  <input
-                    style={{ width: "25px" }}
-                    className="text-center border-0"
-                    type="text"
-                    value={count}
-                  />
-                  <button
-                    onClick={handleIncrement}
-                    style={{ padding: "0 3px", border: "none" }}
-                  >
-                    +
-                  </button>
-                </td>
-                <td>$ {count * 57}</td>
-                <td>
-                  <button
-                    style={{ padding: "0 5px" }}
-                    className="text-danger border-0"
-                  >
-                    X
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div style={{ width: '50px', height: 'auto' }}>
-                    <Image
-                      layout="responsive"
-                      width={100}
-                      height={100}
-                      src="https://upload.wikimedia.org/wikipedia/commons/9/90/Hapus_Mango.jpg"
-                      className=" "
-                      alt=""
-                    />
-                  </div>
-                </td>
-                <td>
-                  <h5>Mango art</h5>
-                </td>
-                <td>$57</td>
-                <td>
-                  <button
-                    onClick={handleDecrement}
-                    style={{ padding: "0 3px", border: "none" }}
-                    className=""
-                  >
-                    -
-                  </button>
-                  <input
-                    style={{ width: "25px" }}
-                    className="text-center border-0"
-                    type="text"
-                    value={count}
-                  />
-                  <button
-                    onClick={handleIncrement}
-                    style={{ padding: "0 3px", border: "none" }}
-                  >
-                    +
-                  </button>
-                </td>
-                <td>$ {count * 57}</td>
-                <td>
-                  <button
-                    style={{ padding: "0 5px" }}
-                    className="text-danger border-0"
-                  >
-                    X
-                  </button>
-                </td>
-              </tr>
+                    <button
+                      onClick={handleIncrement}
+                      style={{ padding: "0 3px", border: "none" }}
+                    >
+                      +
+                    </button>
+                  </td>
+                  <td>
+                    ${" "}
+                    {(
+                      count *
+                      (product.price - product.discountPercentage)
+                    ).toFixed(2)}
+                  </td>
+                  <td>
+                    <button
+                      style={{ padding: "0 5px" }}
+                      className="text-danger border-0"
+                    >
+                      X
+                    </button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </Table>
           <div className="d-flex justify-content-between">

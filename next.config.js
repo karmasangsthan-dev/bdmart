@@ -2,7 +2,13 @@
 const nextConfig = {
   reactStrictMode: false,
   images: {
-    domains: ["res.cloudinary.com", "i.ibb.co","lh3.googleusercontent.com","upload.wikimedia.org"],
+    domains: [
+      "i.dummyjson.com",
+      "res.cloudinary.com",
+      "i.ibb.co",
+      "lh3.googleusercontent.com",
+      "upload.wikimedia.org",
+    ],
   },
 };
 // module.exports = {

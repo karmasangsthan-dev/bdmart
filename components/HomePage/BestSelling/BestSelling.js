@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
 import Slider from "react-slick";
-import Product from "../../Product/Product";
+
+import ProductCard from "../../Product/ProductCard";
+import { useGetProductsQuery } from "../../../features/product/productApi";
 
 const SampleNextArrow = (props) => {
   const { onClick } = props;
@@ -25,7 +27,7 @@ const SamplePrevArrow = (props) => {
 };
 
 const BestSelling = () => {
-  
+  const { data } = useGetProductsQuery();
   const settings = {
     dots: false,
     infinite: true,
@@ -61,64 +63,15 @@ const BestSelling = () => {
       },
     ],
   };
-  const productsItem = [
-    {
-      _id: 1,
-      img: "/images/card-1.jpg",
-      name: "Item name A",
-      price: 800,
-      oldPrice: 910,
-      savedPrice: 110,
-    },
-    {
-      _id: 2,
-      img: "/images/card-1.jpg",
-      name: "Item name B",
-      price: 800,
-      oldPrice: 910,
-      savedPrice: 110,
-    },
-    {
-      _id: 3,
-      img: "/images/card-1.jpg",
-      name: "Item name C",
-      price: 800,
-      oldPrice: 910,
-      savedPrice: 110,
-    },
-    {
-      _id: 4,
-      img: "/images/card-1.jpg",
-      name: "Item name D",
-      price: 800,
-      oldPrice: 910,
-      savedPrice: 110,
-    },
-    {
-      _id: 5,
-      img: "/images/card-1.jpg",
-      name: "Item name E",
-      price: 800,
-      oldPrice: 910,
-      savedPrice: 110,
-    },
-    {
-      _id: 6,
-      img: "/images/card-1.jpg",
-      name: "Item name F",
-      price: 800,
-      oldPrice: 910,
-      savedPrice: 110,
-    },
-  ];
+
   return (
     <div>
       <div className="card-header">
         <h1 className="text-center mb-4">Bestselling items on Rollback</h1>
       </div>
       <Slider className="mb-3 px-4" {...settings}>
-        {productsItem.map((item) => (
-          <Product item={item} />
+        {data?.data?.map((product) => (
+          <ProductCard product={product} />
         ))}
       </Slider>
     </div>
