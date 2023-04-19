@@ -177,18 +177,22 @@ const Header = () => {
                     loading="eager"
                   />
                 </Link>
-                <span
-                  className=" d-inline-block text-white rounded-circle bg-danger fs-6  fw-semibold border"
-                  style={{
-                    padding: "1px 5px",
-                    margin: "0 -15px",
-                  }}
-                >
-                  {" "}
-                  {user?.cart?.length < 10
-                    ? `0${user?.cart?.length}`
-                    : user?.cart.length}
-                </span>
+                {user?.cart?.length ? (
+                  <span
+                    className=" d-inline-block text-white rounded-circle bg-danger fs-6  fw-semibold border"
+                    style={{
+                      padding: "1px 5px",
+                      margin: "0 -15px",
+                    }}
+                  >
+                    {" "}
+                    {user?.cart?.length < 10
+                      ? `0${user?.cart?.length}`
+                      : user?.cart.length}
+                  </span>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
           </div>
