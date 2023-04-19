@@ -5,6 +5,7 @@ import LandingImage from "../components/HomePage/LandingImage/LandingImage";
 import ShopDepartments from "../components/HomePage/Department/ShopDepartments";
 
 import Layout from "../components/Layout";
+import Footer from "../components/Shared/Footer/Footer";
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
       <LandingImage></LandingImage>
       <BestSelling></BestSelling>
       <ShopDepartments />
+      <Footer></Footer>
     </Layout>
   );
 }

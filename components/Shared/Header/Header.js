@@ -40,7 +40,7 @@ const Header = () => {
             </div>
             <div className="email">
               <i className="far fa-envelope"></i>
-              <p>abc@gmail.com</p>
+              <p>contact@bangladeshmart.com.bd</p>
             </div>
           </div>
           <div className="user-area">
@@ -1049,9 +1049,9 @@ const Header = () => {
                     <a href="">
                       <li className="inner-li">Customer Services</li>
                     </a>
-                    <a href="#">
-                      <li onClick={()=>router.push('/shop')} className="inner-li">Shop</li>
-                    </a>
+                    <Link href="/shop">
+                      <li  className="inner-li">Shop</li>
+                    </Link>
                   </ul>
                 </div>
               </div>

@@ -9,7 +9,7 @@ const LandingImage = () => {
                     <Image
                         className="d-block "
                         alt='Mountains'
-                        src="/images1/image(12).png"
+                        src="/images/image(12).png"
                         loading="eager"
                         layout="responsive"
                         width={100}

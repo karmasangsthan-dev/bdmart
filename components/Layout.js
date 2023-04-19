@@ -14,18 +14,7 @@ const Layout = ({ children, title = "Bangladesh Mart" }) => {
     dispatch(fetchUser(token));
   }, [dispatch]);
 
-  useEffect(() => {
-    const handleUnload = (event) => {
-      // Close IndexedDB connection before navigating away from the page
-      if (indexedDB) {
-        indexedDB.close();
-      }
-    };
-    window.addEventListener("unload", handleUnload);
-    return () => {
-      window.removeEventListener("unload", handleUnload);
-    };
-  }, []);
+  
 
   return (
     <div style={{ minHeight: "120vh" }}>
@@ -33,6 +22,7 @@ const Layout = ({ children, title = "Bangladesh Mart" }) => {
 
       </Head>
       <Script src="https://kit.fontawesome.com/a3939c0da5.js" crossorigin="anonymous"></Script>
+      
       <Header />
 
       <main>{children}</main>

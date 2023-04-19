@@ -20,21 +20,22 @@ export default function Product({ item }) {
       <div className="product p-3">
         <picture>
           <Image
-            src={item.img}
+            src={item.thumbnail}
             layout="responsive"
             width={1000}
             height={1000}
+            alt="img"
           />
 
         </picture>
         <div className="main-detail ">
-          <div className="item-name">{item.name}</div>
+          <div className="item-name">{item.title.length > 20 ? `${item.title.slice(0,18)}...` : item.title}</div>
         </div>
-        <div className="item-price">{item.price}.00$</div>
+        <div className="item-price">{item.price ? item?.price : 30}.00$</div>
         <div className="old-price">
-          <del>{item.oldPrice}.00$</del>
+          <del>{item.oldPrice ? item?.oldPrice : 40}.00$</del>
         </div>
-        <div className="save-price">{item.savedPrice}.00$</div>
+        <div className="save-price">{item.savedPrice? item?.savedPrice : 10}.00$</div>
         <div id="cart-btn" className="cart-btn">
           {selectedProduct === item._id ? (
             <div className="plus-btn">

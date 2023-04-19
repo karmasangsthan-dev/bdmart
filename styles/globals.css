@@ -2161,6 +2161,9 @@ a.slide_btn {
   color: #ccc;
   text-decoration: line-through;
 }
+.shop-categories{
+  user-select: none;
+}
 .shop-categories li{
   list-style-type: none;
 }
