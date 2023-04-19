@@ -88,7 +88,8 @@ const NavMenu = () => {
             </IconButton>
           </Tooltip>
         </Box>
-        <Menu
+        <Menu 
+        style={{zIndex:'999999'}}
           anchorEl={anchorEl}
           id="account-menu"
           open={open}

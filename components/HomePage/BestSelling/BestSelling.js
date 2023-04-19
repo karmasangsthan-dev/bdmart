@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import Slider from "react-slick";
 import Product from "../../Product/Product";
@@ -24,8 +24,16 @@ const SamplePrevArrow = (props) => {
   );
 };
 
-const BestSelling = () => {
-  
+const BestSelling = (props) => {
+  console.log(props.product,'pp')
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    fetch('https://dummyjson.com/products')
+      .then(res => res.json())
+      .then(data => setData(data.products))
+  }, [])
+
   const settings = {
     dots: false,
     infinite: true,
@@ -61,64 +69,16 @@ const BestSelling = () => {
       },
     ],
   };
-  const productsItem = [
-    {
-      _id: 1,
-      img: "/images/card-1.jpg",
-      name: "Item name A",
-      price: 800,
-      oldPrice: 910,
-      savedPrice: 110,
-    },
-    {
-      _id: 2,
-      img: "/images/card-1.jpg",
-      name: "Item name B",
-      price: 800,
-      oldPrice: 910,
-      savedPrice: 110,
-    },
-    {
-      _id: 3,
-      img: "/images/card-1.jpg",
-      name: "Item name C",
-      price: 800,
-      oldPrice: 910,
-      savedPrice: 110,
-    },
-    {
-      _id: 4,
-      img: "/images/card-1.jpg",
-      name: "Item name D",
-      price: 800,
-      oldPrice: 910,
-      savedPrice: 110,
-    },
-    {
-      _id: 5,
-      img: "/images/card-1.jpg",
-      name: "Item name E",
-      price: 800,
-      oldPrice: 910,
-      savedPrice: 110,
-    },
-    {
-      _id: 6,
-      img: "/images/card-1.jpg",
-      name: "Item name F",
-      price: 800,
-      oldPrice: 910,
-      savedPrice: 110,
-    },
-  ];
+
+
   return (
     <div>
       <div className="card-header">
         <h1 className="text-center mb-4">Bestselling items on Rollback</h1>
       </div>
       <Slider className="mb-3 px-4" {...settings}>
-        {productsItem.map((item) => (
-          <Product item={item} />
+        {data?.map((item) => (
+          <Product key={item._id} item={item} />
         ))}
       </Slider>
     </div>
@@ -126,3 +86,17 @@ const BestSelling = () => {
 };
 
 export default BestSelling;
+
+
+export const getStaticProps = async () => {
+  const res = await fetch('https://dummyjson.com/products');
+  const data = await res.json();
+  
+  return {
+    props: {
+      product : data
+    }
+  };
+}
+
+
