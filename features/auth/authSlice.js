@@ -57,18 +57,51 @@ const authSlice = createSlice({
         cart: [],
       };
     },
-    addToCart: (state, action) => {
-      state.user = {
-        ...state.user,
-        cart: [...state.user.cart, action.payload],
-      };
-    },
+
     setUser: (state, action) => {
       state.user = action.payload;
       state.isLoading = false;
       state.isSuccess = true;
       state.isError = false;
       state.error = "";
+    },
+    addToCart: (state, action) => {
+      state.user = {
+        ...state.user,
+        cart: [...state.user.cart, { product: action.payload, quantity: 1 }],
+      };
+    },
+    incCartProductQuantity: (state, { payload }) => {
+      state.user = {
+        ...state.user,
+        cart: [
+          ...state.user.cart.filter((product) => product?._id !== payload?._id),
+          {
+            product: payload.product,
+            quantity: payload.quantity + 1,
+          },
+        ],
+      };
+    },
+    removeCartProduct: (state, { payload }) => {
+      state.user = {
+        ...state.user,
+        cart: [
+          ...state.user.cart.filter((product) => product?._id !== payload?._id),
+        ],
+      };
+    },
+    decCartProductQuantity: (state, { payload }) => {
+      state.user = {
+        ...state.user,
+        cart: [
+          ...state.user.cart.filter((product) => product?._id !== payload?._id),
+          {
+            product: payload.product,
+            quantity: payload.quantity > 1 ? payload.quantity - 1 : 1,
+          },
+        ],
+      };
     },
   },
   extraReducers: (builder) => {
@@ -114,5 +147,12 @@ const authSlice = createSlice({
   },
 });
 
-export const { logOut, setUser, addToCart } = authSlice.actions;
+export const {
+  logOut,
+  setUser,
+  addToCart,
+  incCartProductQuantity,
+  decCartProductQuantity,
+  removeCartProduct,
+} = authSlice.actions;
 export default authSlice.reducer;

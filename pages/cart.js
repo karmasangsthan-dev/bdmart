@@ -5,30 +5,10 @@ import Header from "../components/Shared/Header/Header";
 import Layout from "../components/Layout";
 import Image from "next/image";
 import { useSelector } from "react-redux";
+import CartProductRow from "../components/Cart/CartProductRow";
 
 const Cart = () => {
   const cart = useSelector((state) => state.auth.user?.cart) || [];
-  const [count, setCount] = useState(1);
-  const handleIncrement = () => {
-    if (count < 10) {
-      setCount(count + 1);
-    }
-  };
-  const handleDecrement = () => {
-    if (count >= 1) {
-      setCount(count - 1);
-    }
-  };
-  console.log(cart);
-
-  const removeFromCart = () => {
-    // console.log('removed');
-  };
-
-  // const totalPrice = cartItems.reduce(
-  //   (acc, curr) => acc + curr.price * curr.quantity,
-  //   0
-  // );
 
   return (
     <Layout title="Cart - Bangladesh Mart">
@@ -46,63 +26,8 @@ const Cart = () => {
               </tr>
             </thead>
             <tbody>
-              {cart?.map((product) => (
-                <tr key={product?._id}>
-                  <td>
-                    <div style={{ width: "50px", height: "auto" }}>
-                      <Image
-                        layout="responsive"
-                        width={100}
-                        height={100}
-                        src={product?.thumbnail}
-                        className=" "
-                        alt=""
-                      />
-                    </div>
-                  </td>
-                  <td>
-                    <h5 className="text-capitalize">{product?.title}</h5>
-                  </td>
-                  <td>
-                    {(product.price - product.discountPercentage).toFixed(2)} $
-                  </td>
-                  <td>
-                    <button
-                      onClick={handleDecrement}
-                      style={{ padding: "0 3px", border: "none" }}
-                      className=""
-                    >
-                      -
-                    </button>
-                    <input
-                      style={{ width: "25px" }}
-                      className="text-center border-0"
-                      type="text"
-                      value={count}
-                    />
-                    <button
-                      onClick={handleIncrement}
-                      style={{ padding: "0 3px", border: "none" }}
-                    >
-                      +
-                    </button>
-                  </td>
-                  <td>
-                    ${" "}
-                    {(
-                      count *
-                      (product.price - product.discountPercentage)
-                    ).toFixed(2)}
-                  </td>
-                  <td>
-                    <button
-                      style={{ padding: "0 5px" }}
-                      className="text-danger border-0"
-                    >
-                      X
-                    </button>
-                  </td>
-                </tr>
+              {cart?.map((item) => (
+                <CartProductRow item={item} key={item} />
               ))}
             </tbody>
           </Table>
