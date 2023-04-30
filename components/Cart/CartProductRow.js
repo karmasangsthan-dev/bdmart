@@ -1,17 +1,52 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addCartProductQuantity,
   decCartProductQuantity,
+  fetchUser,
   incCartProductQuantity,
   removeCartProduct,
 } from "../../features/auth/authSlice";
 import Image from "next/image";
+import { useHandleCartQuantityMutation } from "../../features/auth/authApi";
 
 export default function CartProductRow({ item }) {
-  const dispatch = useDispatch();
   const { product, quantity } = item || {};
 
+  const [token, setToken] = useState();
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.user);
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    setToken(accessToken);
+  }, []);
+
+  const [handleCartQuantity, { isSuccess, isError, error }] =
+    useHandleCartQuantityMutation();
+
+  const handleQuantityIncrement = (item) => {
+    const productId = item?._id;
+    const userId = user?._id;
+    const data = { productId, userId, token, handleQuantityType: "increment" };
+    // dispatch(incCartProductQuantity(item));
+
+    handleCartQuantity(data);
+  };
+  const handleQuantityDecrement = (item) => {
+    const productId = item?._id;
+    const userId = user?._id;
+    const data = { productId, userId, token, handleQuantityType: "decrement" };
+
+    // dispatch(decCartProductQuantity(item));
+
+    handleCartQuantity(data);
+  };
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(fetchUser(token));
+    }
+  }, []);
+  console.log({ isSuccess, isError, error });
   return (
     <tr key={product?._id}>
       <td>
@@ -32,7 +67,7 @@ export default function CartProductRow({ item }) {
       <td>{(product?.price - product?.discountPercentage).toFixed(2)} $</td>
       <td>
         <button
-          onClick={() => dispatch(decCartProductQuantity(item))}
+          onClick={() => handleQuantityDecrement(item)}
           style={{ padding: "0 3px", border: "none" }}
           className=""
         >
@@ -45,7 +80,7 @@ export default function CartProductRow({ item }) {
           value={quantity}
         />
         <button
-          onClick={() => dispatch(incCartProductQuantity(item))}
+          onClick={() => handleQuantityIncrement(item)}
           style={{ padding: "0 3px", border: "none" }}
         >
           +

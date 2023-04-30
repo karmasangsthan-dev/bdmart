@@ -69,6 +69,17 @@ const authApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["User"],
     }),
+    handleCartQuantity: builder.mutation({
+      query: ({ token, ...data }) => ({
+        url: "/user/cartQuantity",
+        method: "PATCH",
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+        body: data,
+      }),
+      invalidatesTags: ["User"],
+    }),
   }),
 });
 
@@ -80,4 +91,5 @@ export const {
   useUpdateProfileMutation,
   useGetMeQuery,
   useAddToCartMutation,
+  useHandleCartQuantityMutation,
 } = authApi;

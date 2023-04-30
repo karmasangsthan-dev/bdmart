@@ -26,7 +26,10 @@ export const fetchUser = createAsyncThunk("auth/fetchUser", async (token) => {
 export const googleLogin = createAsyncThunk(
   "auth/googleLogin",
   async (data) => {
-    console.log("data in authslice", data);
+    // console.log("data in authslice", data);
+    console.log(
+      `${process.env.NEXT_PUBLIC_BACKEND_SITE_LINK}/api/v1/user/socialLogin`
+    );
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_SITE_LINK}/api/v1/user/socialLogin`,
       {
@@ -38,7 +41,8 @@ export const googleLogin = createAsyncThunk(
       }
     );
     const result = await response.json();
-    if (result?.status == "success") {
+    console.log(result);
+    if (result?.status == 1) {
       localStorage.setItem("accessToken", result?.token);
       return data;
     }
@@ -68,7 +72,10 @@ const authSlice = createSlice({
     addToCart: (state, action) => {
       state.user = {
         ...state.user,
-        cart: [...state.user.cart, { product: action.payload, quantity: 1 }],
+        cart: [
+          ...state.user.cart,
+          { product: action.payload, quantity: 1, _id: action.payload._id },
+        ],
       };
     },
     incCartProductQuantity: (state, { payload }) => {

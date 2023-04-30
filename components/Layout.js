@@ -28,8 +28,10 @@ const Layout = ({ children, title = "Bangladesh Mart" }) => {
   }, []);
 
   return (
-    <div style={{ minHeight: "120vh" }}>
-      <Head></Head>
+    <div>
+      <Head>
+        <title>{title}</title>
+      </Head>
       <Script
         src="https://kit.fontawesome.com/a3939c0da5.js"
         crossorigin="anonymous"
