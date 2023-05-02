@@ -199,8 +199,8 @@ const shop = ({ data }) => {
                                                 <Collapse in={brandOpen}>
                                                     <div id="example-collapse-text">
                                                         {
-                                                            brands?.map((b) => {
-                                                                return <div className="form-check">
+                                                            brands?.map((b,i) => {
+                                                                return <div  key={i} className="form-check">
                                                                     <input className="form-check-input" type="checkbox" id="next-brand" />
                                                                     <label className="form-check-label" for="next-brand">
                                                                         {b}

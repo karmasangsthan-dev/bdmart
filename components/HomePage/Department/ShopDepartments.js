@@ -96,8 +96,8 @@ const ShopDepartments = () => {
 
       <div className="d-flex justify-content-center px-5">
         <div className="  row mx-auto">
-          {gallery.map((gal) => (
-            <div className="col-lg-2   col-xl-2 col-sm-6 col-6 gap-4">
+          {gallery.map((gal,index) => (
+            <div key={index} className="col-lg-2   col-xl-2 col-sm-6 col-6 gap-4">
               <div className="gallery-img d-flex justify-content-center">
                 <Image
                   layout="responsive"
