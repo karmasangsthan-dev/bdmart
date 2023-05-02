@@ -81,13 +81,14 @@ const authSlice = createSlice({
     incCartProductQuantity: (state, { payload }) => {
       state.user = {
         ...state.user,
-        cart: [
-          ...state.user.cart.filter((product) => product?._id !== payload?._id),
-          {
-            product: payload.product,
-            quantity: payload.quantity + 1,
-          },
-        ],
+        cart: state.user.cart.map((product) =>
+          product._id === payload._id
+            ? {
+                ...product,
+                quantity: product.quantity + 1,
+              }
+            : product
+        ),
       };
     },
     removeCartProduct: (state, { payload }) => {
@@ -101,13 +102,14 @@ const authSlice = createSlice({
     decCartProductQuantity: (state, { payload }) => {
       state.user = {
         ...state.user,
-        cart: [
-          ...state.user.cart.filter((product) => product?._id !== payload?._id),
-          {
-            product: payload.product,
-            quantity: payload.quantity > 1 ? payload.quantity - 1 : 1,
-          },
-        ],
+        cart: state.user.cart.map((product) =>
+          product._id === payload._id
+            ? {
+                ...product,
+                quantity: product.quantity - 1,
+              }
+            : product
+        ),
       };
     },
   },

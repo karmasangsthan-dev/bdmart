@@ -60,7 +60,7 @@ const Cart = () => {
               className=" btn bg-white border border-dark border-2 py-2 px-4 text-dark text-decoration-none"
               href="/"
             >
-              Clear Cart
+              Save Cart
             </button>
           </div>
 

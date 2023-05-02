@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  addCartProductQuantity,
   decCartProductQuantity,
   fetchUser,
   incCartProductQuantity,
@@ -28,18 +27,25 @@ export default function CartProductRow({ item }) {
     const productId = item?._id;
     const userId = user?._id;
     const data = { productId, userId, token, handleQuantityType: "increment" };
-    // dispatch(incCartProductQuantity(item));
-
-    handleCartQuantity(data);
+    dispatch(
+      incCartProductQuantity({
+        _id: productId,
+        quantity: item.quantity,
+        product: item,
+      })
+    );
   };
   const handleQuantityDecrement = (item) => {
     const productId = item?._id;
     const userId = user?._id;
     const data = { productId, userId, token, handleQuantityType: "decrement" };
-
-    // dispatch(decCartProductQuantity(item));
-
-    handleCartQuantity(data);
+    dispatch(
+      decCartProductQuantity({
+        _id: productId,
+        quantity: item.quantity,
+        product: item,
+      })
+    );
   };
   useEffect(() => {
     if (isSuccess) {
