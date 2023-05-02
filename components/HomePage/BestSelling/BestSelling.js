@@ -77,8 +77,8 @@ const BestSelling = (props) => {
         <h1 className="text-center mb-4">Bestselling items on Rollback</h1>
       </div>
       <Slider className="mb-3 px-4" {...settings}>
-        {data?.map((item) => (
-          <Product key={item._id} item={item} />
+        {data?.map((item,index) => (
+          <Product key={index} item={item} />
         ))}
       </Slider>
     </div>

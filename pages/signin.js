@@ -8,31 +8,39 @@ import { toast } from "react-hot-toast";
 import { FaGooglePlusG, FaFacebookF } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import Header from "../components/Shared/Header/Header";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+
 import {
   useLoginMutation,
   useSocialLoginMutation,
 } from "../features/auth/authApi";
 import { setUser } from "../features/auth/authSlice";
 import auth from "../firebase.init";
-import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import Layout from "../components/Layout";
 import GoogleLogin from "../components/Shared/SocialLogin/GoogleLogin";
 
 const signin = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [showPass, setShowPass] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPass, setShowPass] = useState(false)
 
+  const [signInWithGoogle, user, loading, errorGoogle] =
+    useSignInWithGoogle(auth);
   const router = useRouter();
   const dispatch = useDispatch();
   const [login, { data, isSuccess, isError, error }] = useLoginMutation();
-
+  const [
+    socialLogin,
+    { data: socialUser, isSuccess: success, isError: isErr, error: err },
+  ] = useSocialLoginMutation();
   const handleSignIn = (event) => {
     event.preventDefault();
 
+
     login({ email, password });
   };
-
+  const handleGoogleSignIn = () => {
+    signInWithGoogle();
+  };
   useEffect(() => {
     if (isSuccess) {
       localStorage.setItem("accessToken", data.token);
@@ -40,14 +48,23 @@ const signin = () => {
       router.push("/");
       dispatch(setUser(data?.data));
     }
-
     if (isError) {
       toast.error(error?.data?.error, { id: "login" });
     }
-  }, [isSuccess, data, dispatch, isError, error]);
+    if (user?.user) {
+      console.log('user created by google', user)
+      const email = user?.user?.email;
+      const fullName = user?.user?.displayName;
+      const providerId = "firebase";
+      socialLogin({ email, fullName, providerId });
+      router.push("/");
+    }
+  }, [isSuccess, data, dispatch, isError, error, user]);
 
   return (
-    <Layout title="Sign in - Bangladesh Mart">
+    <div className="">
+
+      <Header></Header>
       <div style={{ backgroundColor: "#fff !important", minHeight: "100vh" }}>
         <div className="mx-auto" style={{ width: "60% " }}>
           <div className=" d-flex justify-content-between">
@@ -59,6 +76,8 @@ const signin = () => {
             </span>
           </div>
           <div>
+
+
             <div
               style={{ backgroundColor: "#eff0f5" }}
               className="form-container  d-flex"
@@ -78,6 +97,7 @@ const signin = () => {
                     placeholder="Please Enter your Email"
                   />
                 </div>
+
                 <div className="mt-3">
                   <label htmlFor="email">Password*</label>
                   <br />
@@ -91,35 +111,19 @@ const signin = () => {
                     type={showPass ? "text" : "password"}
                     placeholder="Please Enter your Password"
                   />
-                  {showPass ? (
-                    <AiFillEye
-                      onClick={() => setShowPass(!showPass)}
-                      className="fs-5 signup-password-show-button"
-                    />
-                  ) : (
-                    <AiFillEyeInvisible
-                      onClick={() => setShowPass(!showPass)}
-                      className="fs-5 signup-password-show-button"
-                    />
-                  )}
+                  {
+                    showPass ? <AiFillEye onClick={() => setShowPass(!showPass)} className="fs-5 signup-password-show-button" /> : <AiFillEyeInvisible onClick={() => setShowPass(!showPass)} className="fs-5 signup-password-show-button" />
+                  }
                 </div>
               </div>
               <div className="right w-50 mb-4 p-4">
                 <button
-                  onClick={handleSignIn}
                   style={{ backgroundColor: "#faa72c" }}
                   className="btn w-100 px-2 py-2 mt-3 text-white"
                 >
-                  Sign In
+                  Sign Up
                 </button>
                 <p>or sign in with</p>
-                {/* <button
-                  onClick={handleGoogleSignIn}
-                  style={{ backgroundColor: "#d34836" }}
-                  className="btn w-100 px-2 py-2 mt-3 text-white"
-                >
-                  <FaGooglePlusG className="h4 mb-0" /> Google
-                </button> */}
                 <GoogleLogin />
                 <button
                   style={{ backgroundColor: "#3b5998" }}
@@ -132,8 +136,7 @@ const signin = () => {
           </div>
         </div>
       </div>
-    </Layout>
+    </div>
   );
 };
-
 export default signin;
