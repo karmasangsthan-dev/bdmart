@@ -11,7 +11,6 @@ import { useRouter } from "next/router";
 const Header = () => {
   const router = useRouter();
   const user = useSelector((state) => state.auth.user);
-  console.log({user})
 
   useEffect(() => {
     window.addEventListener("scroll", function () {
@@ -27,7 +26,6 @@ const Header = () => {
       strip?.classList.toggle("strip-2-mar", window.scrollY > 0);
     });
   }, []);
-
 
   return (
     <div id="strip2">
@@ -59,7 +57,6 @@ const Header = () => {
                     alt="country"
                     width={18}
                     height={14}
-
                     loading="eager"
                   />
 
@@ -128,7 +125,6 @@ const Header = () => {
                   <div className="d-flex ">
                     <p className="text-warning px-2 rounded-2 text-capitalize ">
                       {user?.fullName}
-
                     </p>
                   </div>
                 )}
@@ -144,16 +140,14 @@ const Header = () => {
               <i className="fas bar fa-bars"></i>
             </div>
             <div className="logo">
-              <Link href="/" >
+              <Link href="/">
                 <Image
                   className="flag-img"
                   src="/images/logo2.jpg"
                   alt="country"
                   width={190}
                   height={70}
-
                 />
-
               </Link>
             </div>
             <div className="search-box">
@@ -178,13 +172,27 @@ const Header = () => {
                     className="flag-img"
                     src="/images/cart.png"
                     alt="country"
-                    width={40}
+                    width={45}
                     height={40}
-
                     loading="eager"
                   />
-
                 </Link>
+                {user?.cart?.length ? (
+                  <span
+                    className=" d-inline-block text-white rounded-circle bg-danger fs-6  fw-semibold border"
+                    style={{
+                      padding: "1px 5px",
+                      margin: "0 -15px",
+                    }}
+                  >
+                    {" "}
+                    {user?.cart?.length < 10
+                      ? `0${user?.cart?.length}`
+                      : user?.cart.length}
+                  </span>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
           </div>
@@ -214,7 +222,7 @@ const Header = () => {
                     aria-expanded="false"
                     aria-controls="panelsStayOpen-collapseThree"
                   >
-                    <span style={{fontSize:"15px"}}> Departments</span>
+                    <span style={{ fontSize: "15px" }}> Departments</span>
                   </button>
                 </h2>
                 <div
@@ -1037,9 +1045,13 @@ const Header = () => {
               <div className="w-auto">
                 <div className="frombar">
                   <ul>
-                    <a href="">
-                      <li className="inner-li">Become a Seller</li>
-                    </a>
+                    <li
+                      className="inner-li d-inline-block fw-bold"
+                      onClick={() => router.push("/shop")}
+                    >
+                      Shop
+                    </li>
+
                     <a href="">
                       <li className="inner-li">Track your Order</li>
                     </a>
