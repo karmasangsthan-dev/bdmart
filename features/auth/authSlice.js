@@ -1,7 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 let initialState = {
-  user: {},
+  user: {
+    cart: [],
+  },
   isLoading: false,
   isError: false,
   isSuccess: false,
@@ -9,19 +11,25 @@ let initialState = {
 };
 
 export const fetchUser = createAsyncThunk("auth/fetchUser", async (token) => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_SITE_LINK}/api/v1/user/me`, {
-    headers: {
-      authorization: `Bearer ${token}`,
-    },
-  });
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_SITE_LINK}/api/v1/user/me`,
+    {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    }
+  );
   const data = await response.json();
-  console.log(data);
+
   return data?.data;
 });
 export const googleLogin = createAsyncThunk(
   "auth/googleLogin",
   async (data) => {
-    console.log('data in authslice',data)
+    // console.log("data in authslice", data);
+    console.log(
+      `${process.env.NEXT_PUBLIC_BACKEND_SITE_LINK}/api/v1/user/socialLogin`
+    );
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_SITE_LINK}/api/v1/user/socialLogin`,
       {
@@ -33,7 +41,8 @@ export const googleLogin = createAsyncThunk(
       }
     );
     const result = await response.json();
-    if (result?.status == "success") {
+    console.log(result);
+    if (result?.status == 1) {
       localStorage.setItem("accessToken", result?.token);
       return data;
     }
@@ -49,14 +58,59 @@ const authSlice = createSlice({
       state.user = {
         email: "",
         role: "",
+        cart: [],
       };
     },
+
     setUser: (state, action) => {
       state.user = action.payload;
       state.isLoading = false;
       state.isSuccess = true;
       state.isError = false;
       state.error = "";
+    },
+    addToCart: (state, action) => {
+      state.user = {
+        ...state.user,
+        cart: [
+          ...state.user.cart,
+          { product: action.payload, quantity: 1, _id: action.payload._id },
+        ],
+      };
+    },
+    incCartProductQuantity: (state, { payload }) => {
+      state.user = {
+        ...state.user,
+        cart: state.user.cart.map((product) =>
+          product._id === payload._id
+            ? {
+                ...product,
+                quantity: product.quantity + 1,
+              }
+            : product
+        ),
+      };
+    },
+    removeCartProduct: (state, { payload }) => {
+      state.user = {
+        ...state.user,
+        cart: [
+          ...state.user.cart.filter((product) => product?._id !== payload?._id),
+        ],
+      };
+    },
+    decCartProductQuantity: (state, { payload }) => {
+      state.user = {
+        ...state.user,
+        cart: state.user.cart.map((product) =>
+          product._id === payload._id
+            ? {
+                ...product,
+                quantity: product.quantity - 1,
+              }
+            : product
+        ),
+      };
     },
   },
   extraReducers: (builder) => {
@@ -102,5 +156,12 @@ const authSlice = createSlice({
   },
 });
 
-export const { logOut, setUser } = authSlice.actions;
+export const {
+  logOut,
+  setUser,
+  addToCart,
+  incCartProductQuantity,
+  decCartProductQuantity,
+  removeCartProduct,
+} = authSlice.actions;
 export default authSlice.reducer;

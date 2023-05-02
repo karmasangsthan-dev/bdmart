@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import Slider from "react-slick";
+
 import Product from "../../Product/Product";
 
 const SampleNextArrow = (props) => {
@@ -70,7 +71,6 @@ const BestSelling = (props) => {
     ],
   };
 
-
   return (
     <div>
       <div className="card-header">
@@ -87,16 +87,5 @@ const BestSelling = (props) => {
 
 export default BestSelling;
 
-
-export const getStaticProps = async () => {
-  const res = await fetch('https://dummyjson.com/products');
-  const data = await res.json();
-  
-  return {
-    props: {
-      product : data
-    }
-  };
-}
 
 

@@ -10,9 +10,9 @@ import Footer from "../components/Shared/Footer/Footer";
 export default function Home() {
   return (
     <Layout>
-      <Banner></Banner>
-      <LandingImage></LandingImage>
-      <BestSelling></BestSelling>
+      <Banner />
+      {/* <LandingImage/> */}
+      <BestSelling />
       <ShopDepartments />
       <Footer></Footer>
     </Layout>
